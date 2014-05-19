@@ -23,6 +23,41 @@ namespace LoggerLibrary
             this.Log = LogManager.GetLogger(typeof(Logger));
         }
 
+        public void SetAllLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.All;
+        }
+
+        public void SetDebugLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.Debug;
+        }
+
+        public void SetInfoLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.Info;
+        }
+
+        public void SetWarnLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.Warn;
+        }
+
+        public void SetErrorLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.Error;
+        }
+
+        public void SetFatalLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.Fatal;
+        }
+
+        public void SetOffLogLevel()
+        {
+            this.Log.Logger.Repository.Threshold = log4net.Core.Level.Off;
+        }
+
         public void LogDebugStampNoNewline(string Message)
         {
             this.LogMessage(LogLevel.Debug, true, true, false, Message);
