@@ -7,8 +7,8 @@
     <ProjectGuid>{7135823C-D48F-4B76-91D0-1551CCF694F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LoggerLibrary</RootNamespace>
-    <AssemblyName>LoggerLibrary</AssemblyName>
+    <RootNamespace>Bukimedia.LoggerLibrary</RootNamespace>
+    <AssemblyName>Bukimedia.LoggerLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
