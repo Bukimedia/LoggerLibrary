@@ -23,6 +23,12 @@ namespace Bukimedia.LoggerLibrary
             this.Log = LogManager.GetLogger(typeof(Logger));
         }
 
+        public void SetLogFileName(string LogFileName)
+        {
+            this.LogFileName = LogFileName;
+            log4net.GlobalContext.Properties["LogFileName"] = this.LogFileName;
+        }
+
         public void SetAllLogLevel()
         {
             this.Log.Logger.Repository.Threshold = log4net.Core.Level.All;
