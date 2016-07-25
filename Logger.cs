@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
+using Microsoft.AspNet.SignalR.Client;
+using log4net.Layout;
 
 namespace Bukimedia.LoggerLibrary
 {
@@ -14,19 +16,50 @@ namespace Bukimedia.LoggerLibrary
     {
         string LogFileName { get; set; }
         ILog Log { get; set; }
+        private IHubProxy Hub;
+
+        private SignalRAppender _signalRAppender;
+
+        private MemoryAppenderWithEvents _memoryAppenderWithEvents;
 
         public Logger(string LogFileName)
         {
             this.LogFileName = LogFileName;
             log4net.GlobalContext.Properties["LogFileName"] = this.LogFileName;
             log4net.Config.XmlConfigurator.Configure();
-            this.Log = LogManager.GetLogger(typeof(Logger));
+            this.Log = LogManager.GetLogger(typeof(Logger));           
         }
 
         public void SetLogFileName(string LogFileName)
         {
             this.LogFileName = LogFileName;
             log4net.GlobalContext.Properties["LogFileName"] = this.LogFileName;
+        }
+
+        public void SetSignalRHub(IHubProxy hub)
+        {
+            this.Hub = hub;
+            log4net.GlobalContext.Properties["Hub"] = this.Hub;
+
+            var layout = new PatternLayout("%utcdate %-5level - %message%newline");
+            layout.ActivateOptions();
+            _signalRAppender = new SignalRAppender
+            {
+                Layout = layout,
+                Hub = hub,
+            };
+            _signalRAppender.BufferSize = 500;
+            _signalRAppender.ActivateOptions();
+            BasicConfigurator.Configure(_signalRAppender);
+            ((log4net.Repository.Hierarchy.Logger)Log.Logger).AddAppender(_signalRAppender);
+        }
+
+        public void SetWpfEventHandler(EventHandler eh)
+        {
+            _memoryAppenderWithEvents = new MemoryAppenderWithEvents();
+            _memoryAppenderWithEvents.Updated += eh;
+            BasicConfigurator.Configure(_memoryAppenderWithEvents);
+            ((log4net.Repository.Hierarchy.Logger)Log.Logger).AddAppender(_memoryAppenderWithEvents);
         }
 
         public void SetAllLogLevel()
