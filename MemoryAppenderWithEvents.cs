@@ -21,9 +21,18 @@ namespace Bukimedia.LoggerLibrary
             var handler = Updated;
             if (handler != null)
             {
-                handler(this, new EventArgs());
+                handler(this, new MessageEventArgs(loggingEvent.MessageObject.ToString()));
             }
         }
     }
     
+    public class MessageEventArgs : EventArgs
+    {
+        public string Message { get; set; }
+
+        public MessageEventArgs(string message)
+        {
+            this.Message = message;
+        }
+    }
 }

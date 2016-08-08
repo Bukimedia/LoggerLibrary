@@ -54,7 +54,7 @@ namespace Bukimedia.LoggerLibrary
             ((log4net.Repository.Hierarchy.Logger)Log.Logger).AddAppender(_signalRAppender);
         }
 
-        public void SetWpfEventHandler(EventHandler eh)
+        public void SetEventHandler(EventHandler eh)
         {
             _memoryAppenderWithEvents = new MemoryAppenderWithEvents();
             _memoryAppenderWithEvents.Updated += eh;
